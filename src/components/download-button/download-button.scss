@@ -1,0 +1,59 @@
+download-button {
+  flex: 1;
+  display:flex;
+  display:-webkit-flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border-radius: 50px;
+  color: orange;
+  border: 1px solid orange;
+
+  animation: appearanim 0.7s;
+  -webkit-animation: appearanim 0.7s;
+
+  .download-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    ion-spinner {
+      * {
+        stroke: orange;
+        fill: orange;
+      }
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+}
+download-button:hover {
+  color: white;
+  border: 1px solid white;
+  background-color: orange;
+  ion-spinner {
+    * {
+      stroke: white;
+      fill: white;
+    }
+  }
+}
+@keyframes collapseanim {
+  from {
+    width: auto;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+download-button.collapse {
+  animation: collapseanim 1s forwards;
+  animation: collapseanim 1s forwards;
+  display: none;
+}

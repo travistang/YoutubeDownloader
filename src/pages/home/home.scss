@@ -1,3 +1,127 @@
 page-home {
+	@keyframes downanim {
+		from {
+			transform: translate3d(0,0,0);
+		}
+		to {
+			transform: translate3d(0,35vh,0);
+		}
+	}
+	@-webkit-keyframes downanim {
+		from {
+			transform: translate3d(0,0,0);
+		}
+		to {
+			transform: translate3d(0,35vh,0);
+		}
+	}
+	@keyframes upanim {
+		from {
+			 transform: translate3d(0,35vh,0);
+		}
+		to {
+			transform: translate3d(0,0,0);
+		}
+	}
+	@-webkit-keyframes upanim {
+		from {
+			 transform: translate3d(0,35vh,0);
+		}
+		to {
+			transform: translate3d(0,0,0);
+		}
+	}
+	@keyframes vanishanim {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+	@-webkit-keyframes appearanim {
+		from {
+			opacity: 0;
+		}
+		60% {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+	@-webkit-keyframes vanishanim {
+		from {
+			opacity: 1;
+		}
+		to {
+			opacity: 0;
+		}
+	}
+	.main {
+		display: flex;
+		display: -webkit-flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.searchbar-initial-pos {
+//		position: absolute;
+//		left:12px;
+//		right: 12px;
+//		top: 35vh;
+		transform: translate3d(0,35vh,0);
+	}
+	#searchbar-container {
+		div[ref] {
+			width: 100%;
+			text-align: center;
+			font-family: HelveticaNeue-Light;
+			font-weight: light;
+			font-size: 24px;
+			margin-bottom: 8px;
+		}
+		div[ref][class=""] {
+			-webkit-animation: appearanim 0.5s;
+			animation: appearanim 0.5s;
+		}
+	}
+	.searchbar-box {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+		height: 48px;
+		padding-left: 4px;
+		padding-right: 4px;
 
+		ion-icon {
+			flex: 1;
+			color: rgba(0,0,0,0.6);
+			text-align: center;
+		}
+		input {
+			flex: 9;
+			border: none;
+			//border-bottom: 1px solid rgba(0,0,0,0.1);
+		}
+	}
+	.searchbar-aux-focus {
+		-webkit-animation: vanishanim 0.5s ;
+		animation: vanishanim 0.5s ;
+		opacity: 0;
+	}
+	.searchbar-focus {
+		-webkit-animation: upanim 0.5s ;
+		animation: upanim 0.5s ;
+	}
+	.searchbar-blur {
+		-webkit-animation: downanim 0.5s;
+		animation: downanim 0.5s;
+	}
+
+	ion-spinner {
+		text-align: center;
+		width: 100%;
+	}
 }

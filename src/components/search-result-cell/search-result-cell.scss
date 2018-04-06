@@ -1,0 +1,153 @@
+search-result-cell {
+  @-webkit-keyframes resultanim {
+		from {
+			transform: scale3d(0,0,0);
+			opacity: 0;
+		}
+		50% {
+			transform: scale3d(1.1,1.1,1.1);
+		}
+		75% {
+			transform: scale3d(0.9,0.9,0.9);
+		}
+		to {
+			transform: scale3d(1,1,1);
+			opacity: 1;
+		}
+	}
+	@keyframes resultanim {
+		from {
+			transform: scale3d(0,0,0);
+			opacity: 0;
+		}
+
+		50% {
+			transform: scale3d(1.1,1.1,1.1);
+		}
+		75% {
+			transform: scale3d(0.9,0.9,0.9);
+		}
+		to {
+			transform: scale3d(1,1,1);
+			opacity: 1;
+		}
+	}
+  @-webkit-keyframes result-expand-anim {
+		from {
+			height: 72px;
+		}
+		to {
+			height: 144px;
+		}
+	}
+	@keyframes result-expand-anim {
+		from {
+			height: 72px;
+		}
+		to {
+			height: 144px;
+		}
+	}
+  @-webkit-keyframes result-collapse-anim {
+		from {
+			transform: scale3d(1,2,1);
+		}
+		to {
+			transform: scale3d(1,1,1);
+		}
+	}
+	@keyframes result-collapse-anim {
+		from {
+			transform: scale3d(1,2,1);
+		}
+		to {
+			transform: scale3d(1,1,1);
+		}
+	}
+
+	.result-list {
+		padding-top: 8px;
+	}
+  .result-expanded {
+		animation: result-expand-anim 1s forwards;
+		-webkit-animation: result-expand-anim 1s forwards;
+	}
+	.result-item.result-come {
+		-webkit-animation: resultanim 0.5s;
+		animation: resultanim 0.5s;
+	}
+	.result-item:not(.result-expanded):hover {
+		color: white;
+		background: rgba(0,0,0,0.3);
+	}
+	.result-item {
+		margin-bottom: 8px;
+		margin-top: 8px;
+		box-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+		border-radius: 36px;
+		width: 100%;
+		// height: ;
+		display: flex;
+		display: -webkit-flex;
+		flex-direction: column;
+		.lower-content {
+			display: flex;
+			width: 100%;
+			flex: 1;
+			.expanded-content-left {
+				flex: 3;
+				display: flex;
+				flex-direction: column;
+				margin-left: 4px;
+				margin-right: 12px;
+				justify-content: center;
+				align-items: center;
+				.views {
+					color: grey;
+					font-weight: bold;
+					flex:  0 0 24px;
+					justify-content: center;
+					align-items: center;
+				}
+				.reviews{
+					flex: 0 0 24px;
+					justify-content: center;
+					align-items: center;
+				}
+			}
+			.expanded-content-right {
+				flex: 7;
+				display: flex;
+			}
+		}
+		.upper-content {
+			display:flex;
+			flex: 0 0 72px;
+
+			.thumbnail{
+				flex:3;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				img {
+					border-radius: 36px;
+					height: 75%;
+					width: 75%;
+				}
+			}
+			.result-content {
+				flex:7;
+				margin-left: 4px;
+				margin-right: 12px;
+				margin-top: 8px;
+			}
+			h4.result-name {
+				height: 20px;
+				font-size: 16px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				margin-bottom: 0px;
+			}
+		}
+	}
+}

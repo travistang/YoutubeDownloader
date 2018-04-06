@@ -1,0 +1,5 @@
+<div class="download-btn">
+  <ion-icon [ios]="getIcon()" [md]="getIcon()" *ngIf="!isWaitingForServerReply()"></ion-icon>
+  <ion-spinner name="bubbles" *ngIf="isWaitingForServerReply()"></ion-spinner>
+  {{getText()}}
+</div>

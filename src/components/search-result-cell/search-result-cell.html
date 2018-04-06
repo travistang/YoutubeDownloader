@@ -1,0 +1,43 @@
+<!-- Generated template for the SearchResultCellComponent component -->
+<div
+  [id]="result.id"
+  class="result-item result-come"
+  [class.result-expanded]="expanded"
+  (click)="onClick()"
+>
+  <div class="upper-content">
+    <div class="thumbnail">
+      <img [src]="result.thumbnail">
+    </div>
+    <div class="result-content">
+      <h4 class="result-name">{{result.name}}</h4>
+      <div class="lower-content">
+        <p>{{result.duration}}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="expanded" class="lower-content">
+    <div class="expanded-content-left">
+      <div class="views">
+        <ion-icon ios="md-eye" md="md-eye"></ion-icon> 100
+      </div>
+      <div class="reviews">
+        50%
+      </div>
+    </div>
+    <div class="expanded-content-right">
+      <download-button
+        [isVideoButton]="false"
+        [searchResult]="result"
+        [class.collapse]="downloadedType && downloadedType != 'audio'"
+        (click)="downloadAudio();$event.stopPropagation()">
+      </download-button>
+      <download-button
+        [isVideoButton]="true"
+        [searchResult]="result"
+        [class.collapse]="downloadedType && downloadedType != 'video'"
+        (click)="downloadVideo();$event.stopPropagation()">
+      </download-button>
+    </div>
+  </div>
+</div>

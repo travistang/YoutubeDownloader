@@ -1,14 +1,12 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content class="main" padding>
+	<div [class]="searchbarClass" id="searchbar-container">
+		<!-- search bar -->
+		<div ref="title" [class]="searchbarAuxTextClass">Youtube Downloader</div>
+		<div class="searchbar-box" (click)="onSearchBarFocus()">
+			<ion-icon name="search"></ion-icon>
+			<input placeholder="Search for video here..." id="search-input" (blur)="onSearchBarBlur()" [(ngModel)]="searchText" (change)="onSearchTextChange()"/>
+		</div>
+	</div>
+	<ion-spinner name="bubbles" *ngIf="isLoadingSearchResults"></ion-spinner>
+	<search-result-cell *ngFor="let result of searchResults" [result]="result"></search-result-cell>
 </ion-content>

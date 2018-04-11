@@ -39,4 +39,5 @@ export class SearchResultCellComponent {
     this.downloadedType = type
     this.youtubeDownloader.download(type,this.result.id)
   }
+
 }

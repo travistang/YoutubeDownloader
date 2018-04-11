@@ -18,7 +18,7 @@ export class YoutubeDownloaderProvider {
   fileTransfer: FileTransferObject
   constructor(public http: HttpClient,private transfer: FileTransfer,private file: File) {
     this.http = http
-    this.serverURL = "http://192.168.1.187:5000"
+    this.serverURL = "http://127.0.0.1:5000"
 
     this.downloadProgress = {}
   }
@@ -56,6 +56,7 @@ export class YoutubeDownloaderProvider {
         })
         // register onProgress listener
         transferObject.onProgress(progress => {
+          console.log('on progress')
           if(progress.lengthComputable) {
             this.downloadProgress[id].isProgressCalculatable = true
           } else {

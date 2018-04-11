@@ -1,4 +1,4 @@
-<div class="download-btn">
+<div class="download-btn" [class.invertable]="shouldIconColorInvertOnHover()">
   <ion-icon [ios]="getIcon()" [md]="getIcon()" *ngIf="!isWaitingForServerReply()"></ion-icon>
   <ion-spinner name="bubbles" *ngIf="isWaitingForServerReply()"></ion-spinner>
   {{getText()}}

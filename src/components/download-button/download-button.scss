@@ -1,5 +1,10 @@
 download-button {
   flex: 1;
+  display: flex;
+  display: -webkit-flex
+}
+div.download-btn {
+  flex: 1;
   display:flex;
   display:-webkit-flex;
   justify-content: center;
@@ -15,9 +20,8 @@ download-button {
   animation: appearanim 0.7s;
   -webkit-animation: appearanim 0.7s;
 
-  .download-btn {
+  // .download-btn {
     width: 100%;
-    display: flex;
     justify-content: space-around;
     align-items: center;
     text-align: center;
@@ -29,10 +33,10 @@ download-button {
       width: 28px;
       height: 28px;
     }
-  }
+  // }
 
 }
-download-button:hover {
+div.download-btn.invertable:hover {
   color: white;
   border: 1px solid white;
   background-color: orange;

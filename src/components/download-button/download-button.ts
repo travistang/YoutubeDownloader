@@ -23,8 +23,6 @@ export class DownloadButtonComponent {
   }
 
   getProgressObject() {
-    console.log('youtube downloader:')
-    console.log(this.youtubeDownloader)
     return this.youtubeDownloader.getProgressById(this.searchResult.id)
   }
 
@@ -77,6 +75,12 @@ export class DownloadButtonComponent {
     }
 
   }
+
+  shouldIconColorInvertOnHover() {
+    let status = this.getDownloadStatus()
+    return !(status == 2 || status == 0)
+  }
+
   avText() {
     return this.isVideoButton?'video':'audio'
   }

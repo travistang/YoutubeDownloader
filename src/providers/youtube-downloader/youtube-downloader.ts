@@ -18,14 +18,15 @@ export class YoutubeDownloaderProvider {
   fileTransfer: FileTransferObject
   constructor(public http: HttpClient,private transfer: FileTransfer,private file: File) {
     this.http = http
-    this.serverURL = "http://127.0.0.1:5000"
+    this.serverURL = "http://10.8.0.1:5000"
 
     this.downloadProgress = {}
   }
 
   searchVideo(searchString: string) {
+    console.log('searching video')
     return this.http
-      .get(`${this.serverURL}/search/${encodeURIComponent(searchString)}`)
+      .get(`${this.serverURL}/search/${encodeURIComponent(searchString)}`,{timeout: 5000})
   }
 
   getProgressById(id: string) {
@@ -37,6 +38,7 @@ export class YoutubeDownloaderProvider {
     this.downloadProgress[id] = { loadingTask: true }
     return this.http
       .get(`${this.serverURL}/${type}/${encodeURIComponent(id)}`)
+      .timeout(5000)
       .subscribe((response: any) => {
         let url = response.url
         let filePath = `${this.file.dataDirectory}/${type}/${id}.${(type == 'audio')?'mp3':'mp4'}`

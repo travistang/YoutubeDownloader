@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 
 import { DownloadButtonComponent } from '../../components/download-button/download-button'
 
+import ErrorMessage from './errorMessage'
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -24,6 +25,7 @@ export class HomePage {
   isLoadingSearchResults: boolean;
   searchResults: Array<SearchResult>;
 
+  errorMessage: ErrorMessage;
 //  transfer: FileTransfer;
   fileTransfer: FileTransferObject;
 
@@ -36,9 +38,7 @@ export class HomePage {
     private youtubeProvider: YoutubeDownloaderProvider
   ) {
     this.http = http
-//    this.transfer = transfer
     this.fileTransfer = transfer.create()
-//    this.file = file
 
     this.searchText = ""
     this.searchbarClass = "searchbar-initial-pos"
@@ -47,6 +47,7 @@ export class HomePage {
     this.searchResults = []
     this.isLoadingSearchResults = false
 
+    this.errorMessage = null
   }
   onSearchTextChange() {
     if(this.searchText.trim().length == 0) return
@@ -60,6 +61,13 @@ export class HomePage {
       .subscribe((data: any) => {
   	    this.isLoadingSearchResults = false
   	    this.searchResults = data.map(result => new SearchResult(result.name,result.video_url,result.duration,result.thumbnail_url))
+      },
+      (error: any) => {
+        this.isLoadingSearchResults = false
+        this.errorMessage = new ErrorMessage(
+          'Request Timeout',
+          'Please check your Internet connection and try again'
+        )
       })
   }
   onSearchBarFocus() {
@@ -75,6 +83,7 @@ export class HomePage {
       this.searchbarClass = "searchbar-initial-pos searchbar-blur"
       this.searchbarAuxTextClass = ""
       this.isSearchbarOnFocus = false
+      this.errorMessage = null
     }
   }
 }

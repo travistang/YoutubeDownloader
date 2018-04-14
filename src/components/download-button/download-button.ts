@@ -17,6 +17,7 @@ export class DownloadButtonComponent {
   @Input() isVideoButton: boolean
   @Input() searchResult: SearchResult
 
+
   // UI state flags
   constructor(private youtubeDownloader: YoutubeDownloaderProvider) {
 

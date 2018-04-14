@@ -16,12 +16,15 @@ import { YoutubeDownloaderProvider } from '../providers/youtube-downloader/youtu
 import {DownloadButtonComponent} from '../components/download-button/download-button'
 import {SearchResultCellComponent} from '../components/search-result-cell/search-result-cell'
 
+import {ErrorMessageComponent} from '../components/error-message/error-message'
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     DownloadButtonComponent,
     SearchResultCellComponent,
+    ErrorMessageComponent,
   ],
   imports: [
     BrowserModule,

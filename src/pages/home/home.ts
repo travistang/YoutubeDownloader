@@ -9,6 +9,7 @@ import SearchResult from './result';
 import {YoutubeDownloaderProvider} from '../../providers/youtube-downloader/youtube-downloader'
 // import { Socket } from 'ng-socket-io';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/timeout';
 
 import { DownloadButtonComponent } from '../../components/download-button/download-button'
 
@@ -51,6 +52,8 @@ export class HomePage {
   }
   onSearchTextChange() {
     if(this.searchText.trim().length == 0) return
+    // clear the error message once the user has deleted something
+
     document.getElementById('search-input').blur()
     // request resources
     this.searchResults = []
@@ -58,17 +61,22 @@ export class HomePage {
     // this.http.get(url).map(res => res.json())
     this.youtubeProvider
       .searchVideo(this.searchText)
+      .timeout(5000)
       .subscribe((data: any) => {
   	    this.isLoadingSearchResults = false
   	    this.searchResults = data.map(result => new SearchResult(result.name,result.video_url,result.duration,result.thumbnail_url))
       },
       (error: any) => {
+        console.log(error)
         this.isLoadingSearchResults = false
         this.errorMessage = new ErrorMessage(
           'Request Timeout',
           'Please check your Internet connection and try again'
         )
       })
+  }
+  onKeyDown() {
+    if(this.errorMessage != null) this.errorMessage = null
   }
   onSearchBarFocus() {
     if(!this.isSearchbarOnFocus) {

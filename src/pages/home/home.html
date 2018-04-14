@@ -4,7 +4,12 @@
 		<div ref="title" [class]="searchbarAuxTextClass">Youtube Downloader</div>
 		<div class="searchbar-box" (click)="onSearchBarFocus()">
 			<ion-icon name="search"></ion-icon>
-			<input placeholder="Search for video here..." id="search-input" (blur)="onSearchBarBlur()" [(ngModel)]="searchText" (change)="onSearchTextChange()"/>
+			<input placeholder="Search for video here..."
+				id="search-input"
+				(blur)="onSearchBarBlur()"
+				[(ngModel)]="searchText"
+				(keydown)="onKeyDown()"
+				(change)="onSearchTextChange()"/>
 		</div>
 	</div>
 	<ion-spinner name="bubbles" *ngIf="isLoadingSearchResults"></ion-spinner>

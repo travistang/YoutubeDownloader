@@ -1,7 +1,59 @@
+@keyframes collapseanim {
+  from {
+    flex: 1;
+    opacity: 1;
+  }
+  1% {
+    opacity: 0;
+  }
+  to {
+    flex: 0.0001;
+    overflow:scroll;
+    opacity: 0;
+  }
+}
+@keyframes todownloadcolor {
+  from {
+    color: orange;
+  }
+  to {
+    border-color: lightgreen;
+    color: lightgreen;
+  }
+}
+@keyframes toerrorcolor {
+  from {
+    border-color: lightgreen;
+    color: lightgreen;
+  }
+  to {
+    border-color: pink;
+    color: pink;
+  }
+}
+
 download-button {
   flex: 1;
+
   display: flex;
-  display: -webkit-flex
+  display: -webkit-flex;
+  position: relative;
+  top: 0;
+  left:0;
+}
+div.download-btn.is-downloading {
+  animation: todownloadcolor 1s;
+  -webkit-animation: todownloadcolor 1s;
+  border-color: lightgreen;
+  color: lightgreen;
+  // animation-fill-mode: forwards;
+  // -webkit-animation-fill-mode: forwards;
+}
+div.download-btn.has-error {
+  animation: toerrorcolor 1s;
+  -webkit-animation: todownloadcolor 1s;
+  border-color: pink;
+  color: pink;
 }
 div.download-btn {
   flex: 1;
@@ -16,15 +68,36 @@ div.download-btn {
   border-radius: 50px;
   color: orange;
   border: 1px solid orange;
+  min-height: 32px;
 
   animation: appearanim 0.7s;
   -webkit-animation: appearanim 0.7s;
 
-  // .download-btn {
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
     text-align: center;
+
+    .download-progress-overlay {
+      background: orange;
+      color: orange;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50px;
+      position: absolute;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: 12px;
+      margin-right: 12px;
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      overflow: hidden;
+      width: 50%;
+      mix-blend-mode:screen;
+    }
+    ion-icon {
+      font-size: 24px;
+    }
     ion-spinner {
       * {
         stroke: orange;
@@ -36,6 +109,11 @@ div.download-btn {
   // }
 
 }
+div.download-btn.invertable.is-downloading:hover {
+  background-color: lightgreen;
+  color: white !important;
+}
+
 div.download-btn.invertable:hover {
   color: white;
   border: 1px solid white;
@@ -47,17 +125,11 @@ div.download-btn.invertable:hover {
     }
   }
 }
-@keyframes collapseanim {
-  from {
-    width: auto;
-  }
-  to {
-    width: 0%;
-  }
-}
+
 
 download-button.collapse {
-  animation: collapseanim 1s forwards;
-  animation: collapseanim 1s forwards;
-  display: none;
+  animation: collapseanim 0.5s ease-in;
+  -webkit-animation: collapseanim 0.5s ease-in;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
 }

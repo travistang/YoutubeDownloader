@@ -17,12 +17,14 @@ export class DownloadButtonComponent {
   @Input() isVideoButton: boolean
   @Input() searchResult: SearchResult
 
-
   // UI state flags
   constructor(private youtubeDownloader: YoutubeDownloaderProvider) {
 
   }
 
+  isDownloading() {
+    return this.getDownloadStatus() == 0
+  }
   getProgressObject() {
     return this.youtubeDownloader.getProgressById(this.searchResult.id)
   }
@@ -58,10 +60,7 @@ export class DownloadButtonComponent {
       case -2: return 'error'
       case 0: {
         let progressObject = this.getProgressObject()
-        // is in progress, and the progress is calculatable
-        if(progressObject.isProgressCalculatable) return `${progressObject.progressPercentage}%`
-        // is in progress, but the progress is not calculatable
-        return `Downloading...`
+        return `${progressObject.progressPercentage}%`
       }
       default: return ''
     }

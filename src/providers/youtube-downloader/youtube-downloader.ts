@@ -4,7 +4,10 @@ import { Injectable } from '@angular/core';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import 'rxjs/add/operator/map';
-
+import 'rxjs/add/operator/mergeMap';
+import { forkJoin } from 'rxjs/observable/forkJoin';
+import { of } from 'rxjs/observable/of';
+// import 'rxjs/add/observable/of';
 /*
   Generated class for the YoutubeDownloaderProvider provider.
 
@@ -26,7 +29,7 @@ export class YoutubeDownloaderProvider {
   searchVideo(searchString: string) {
     console.log('searching video')
     return this.http
-      .get(`${this.serverURL}/search/${encodeURIComponent(searchString)}`,{timeout: 5000})
+      .get(`${this.serverURL}/search/${encodeURIComponent(searchString)}`)
   }
 
   getProgressById(id: string) {
@@ -38,43 +41,39 @@ export class YoutubeDownloaderProvider {
     this.downloadProgress[id] = { loadingTask: true }
     return this.http
       .get(`${this.serverURL}/${type}/${encodeURIComponent(id)}`)
-      .timeout(5000)
-      .subscribe((response: any) => {
+
+      .subscribe((response : any) => {
         let url = response.url
+        let fileSize = response.size
+        // let url = response.url
+        // let header = response.headers
+
         let filePath = `${this.file.dataDirectory}/${type}/${id}.${(type == 'audio')?'mp3':'mp4'}`
         // register this download Progress
         let transferObject = this.transfer.create()
+        // initialize download progress object
         this.downloadProgress[id] = Object.assign({},this.downloadProgress[id],{
           type,
           url,
           filePath,
           transferObject,
-          isProgressCalculatable: false,
           progressPercentage: 0,
           completed: false,
           hasError: false,
-
+          fileSize,
           loadingTask: false,
         })
         // register onProgress listener
         transferObject.onProgress(progress => {
-          console.log('on progress')
-          if(progress.lengthComputable) {
-            this.downloadProgress[id].isProgressCalculatable = true
-          } else {
-            this.downloadProgress[id].isProgressCalculatable = false
-            return
-          }
-          this.downloadProgress[id].progressPercentage = Math.round(progress.loaded / progress.total * 100)
+          this.downloadProgress[id].progressPercentage = Math.floor((progress.loaded / this.downloadProgress[id].fileSize) * 100)
         })
-        this.downloadProgress[id]
-            .transferObject
+        transferObject
             .download(url,filePath)
             .then(() => {
-              console.log('download completed')
               this.downloadProgress[id].completed = true
             },
             error => {
+              alert(error)
               this.downloadProgress[id].completed = true
               this.downloadProgress[id].hasError = true
             }
@@ -89,6 +88,8 @@ export class YoutubeDownloaderProvider {
   // TODO: test this
   abort(id: string) {
     if(!(id in this.downloadProgress)) return
+    if(!this.downloadProgress[id].transferObject) return
     this.downloadProgress[id].transferObject.abort()
+    delete this.downloadProgress[id]
   }
 }

@@ -3,11 +3,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { of } from 'rxjs/observable/of';
-// import 'rxjs/add/observable/of';
+import { Subject } from "rxjs/Subject";
 /*
   Generated class for the YoutubeDownloaderProvider provider.
 
@@ -19,11 +15,14 @@ export class YoutubeDownloaderProvider {
   serverURL : string
   downloadProgress: object
   fileTransfer: FileTransferObject
+  public progressSubject: Subject<object> = new Subject()
+
   constructor(public http: HttpClient,private transfer: FileTransfer,private file: File) {
     this.http = http
     this.serverURL = "http://10.8.0.1:5000"
 
     this.downloadProgress = {}
+
   }
 
   searchVideo(searchString: string) {
@@ -39,6 +38,7 @@ export class YoutubeDownloaderProvider {
   download(type: string,id: string) {
     if(id in this.downloadProgress) return
     this.downloadProgress[id] = { loadingTask: true }
+    this.notifyWaiting(id)
     return this.http
       .get(`${this.serverURL}/${type}/${encodeURIComponent(id)}`)
 
@@ -65,23 +65,25 @@ export class YoutubeDownloaderProvider {
         })
         // register onProgress listener
         transferObject.onProgress(progress => {
-          this.downloadProgress[id].progressPercentage = Math.floor((progress.loaded / this.downloadProgress[id].fileSize) * 100)
+          let progressVal = Math.floor((progress.loaded / this.downloadProgress[id].fileSize) * 100)
+          this.downloadProgress[id].progressPercentage = progressVal
+          this.notifyProgress(id,progressVal)
         })
+        /***** Download begin! *****/
+        this.notifyStarted(id)
         transferObject
             .download(url,filePath)
             .then(() => {
               this.downloadProgress[id].completed = true
+              this.notifyCompleted(id)
             },
             error => {
-              alert(error)
+              this.notifyError(id)
               this.downloadProgress[id].completed = true
               this.downloadProgress[id].hasError = true
             }
           )
       })
-      // TODO: persitence for app quitting
-      // TODO: check if file has already exists
-      // TODO: error handling
   }
 
   // abort an operation
@@ -91,5 +93,41 @@ export class YoutubeDownloaderProvider {
     if(!this.downloadProgress[id].transferObject) return
     this.downloadProgress[id].transferObject.abort()
     delete this.downloadProgress[id]
+    this.progressSubject.next( {
+      'type': 'abort',
+      'id': id
+    })
+  }
+
+  notifyError(id: string) {
+    this.progressSubject.next({
+      'type': 'error',
+      'id': id
+    })
+  }
+  notifyCompleted(id: string) {
+    this.progressSubject.next({
+      'type': 'completed',
+      'id': id,
+    })
+  }
+  notifyStarted(id: string) {
+    this.progressSubject.next({
+      'type': 'begin',
+      'id': id
+    })
+  }
+  notifyProgress(id:string, progressVal: number) {
+    this.progressSubject.next({
+      'type': 'progress',
+      'id': id,
+      'progress': progressVal
+    })
+  }
+  notifyWaiting(id:string) {
+    this.progressSubject.next({
+      'type': 'waiting',
+      'id': id,
+    })
   }
 }

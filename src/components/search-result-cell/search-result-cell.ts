@@ -21,6 +21,7 @@ export class SearchResultCellComponent {
 
   constructor(private youtubeDownloader: YoutubeDownloaderProvider) {
     this.expanded = false
+
   }
 
   onClick() {

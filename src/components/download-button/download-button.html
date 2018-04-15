@@ -1,9 +1,12 @@
 <div class="download-btn"
-  [class.invertable]="shouldIconColorInvertOnHover()"
-  [class.is-downloading]="isDownloading()"
+  [class.invertable]="!hasBegun || completed || hasError"
+  [class.is-downloading]="hasBegun && !completed"
+  [class.is-completed]="completed"
+  [class.has-error]="hasBegun && hasError"
 >
   <!-- <div class="download-progress-overlay" *ngIf="isDownloading()">25%</div> -->
-  <ion-icon [ios]="getIcon()" [md]="getIcon()" *ngIf="!isWaitingForServerReply()"></ion-icon>
-  <ion-spinner name="bubbles" *ngIf="isWaitingForServerReply()"></ion-spinner>
-  {{getText()}}
+  <ion-icon [ios]="getIcon()" [md]="getIcon()" *ngIf="!waiting"></ion-icon>
+  <ion-spinner name="bubbles" *ngIf="waiting"></ion-spinner>
+  <span>{{getText()}}</span>
+  <!-- <span *ngIf="isDownloading()">{{downloadProgress + '!'}}</span> -->
 </div>

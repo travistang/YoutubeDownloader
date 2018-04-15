@@ -61,7 +61,7 @@ export class HomePage {
     // this.http.get(url).map(res => res.json())
     this.youtubeProvider
       .searchVideo(this.searchText)
-      .timeout(5000)
+      .timeout(10000)
       .subscribe((data: any) => {
   	    this.isLoadingSearchResults = false
   	    this.searchResults = data.map(result => new SearchResult(result.name,result.video_url,result.duration,result.thumbnail_url))

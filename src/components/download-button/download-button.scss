@@ -12,7 +12,32 @@
     opacity: 0;
   }
 }
+
+@-webkit-keyframes collapseanim {
+  from {
+    flex: 1;
+    opacity: 1;
+  }
+  1% {
+    opacity: 0;
+  }
+  to {
+    flex: 0.0001;
+    overflow:scroll;
+    opacity: 0;
+  }
+}
+
 @keyframes todownloadcolor {
+  from {
+    color: orange;
+  }
+  to {
+    border-color: lightgreen;
+    color: lightgreen;
+  }
+}
+@-webkit-keyframes todownloadcolor {
   from {
     color: orange;
   }
@@ -31,7 +56,16 @@
     color: pink;
   }
 }
-
+@-webkit-keyframes toerrorcolor {
+  from {
+    border-color: lightgreen;
+    color: lightgreen;
+  }
+  to {
+    border-color: pink;
+    color: pink;
+  }
+}
 download-button {
   flex: 1;
 
@@ -129,7 +163,8 @@ div.download-btn.invertable:hover {
 
 download-button.collapse {
   animation: collapseanim 0.5s ease-in;
-  -webkit-animation: collapseanim 0.5s ease-in;
+  -webkit-animation: collapseanim 0.5s;
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
+  visibility: hidden;
 }

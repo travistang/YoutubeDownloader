@@ -3,7 +3,7 @@ import { File } from '@ionic-native/file';
 import { FileOpener} from '@ionic-native/file-opener';
 
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,IonicPage } from 'ionic-angular';
 import {Http} from '@angular/http';
 import SearchResult from './result';
 import {YoutubeDownloaderProvider} from '../../providers/youtube-downloader/youtube-downloader'
@@ -14,6 +14,8 @@ import 'rxjs/add/operator/timeout';
 import { DownloadButtonComponent } from '../../components/download-button/download-button'
 
 import ErrorMessage from './errorMessage'
+
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -51,7 +53,10 @@ export class HomePage {
     this.errorMessage = null
   }
   onSearchTextChange() {
-    if(this.searchText.trim().length == 0) return
+    if(this.searchText.trim().length == 0){
+      this.searchResults = []
+      return
+    }
     // clear the error message once the user has deleted something
 
     document.getElementById('search-input').blur()

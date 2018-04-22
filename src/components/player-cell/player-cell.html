@@ -1,0 +1,16 @@
+<!-- Generated template for the PlayerCellComponent component -->
+<ion-card (click)="onItemClick()">
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="https://i.ytimg.com/vi/gQtPtgkMTq4/hqdefault.jpg?sqp=-oaymwEXCPYBEIoBSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLDm0BFUoQEmE3LdohRq5xxHLsoGyA">
+    </ion-avatar>
+    <h2> {{media.name}} </h2>
+    <p> {{media.duration}} </p>
+    <ion-icon
+      [class.lightgreen]="media.type == 'audio'"
+      [class.pink]="media.type == 'video'"
+      [name]="(media.type == 'audio')?'musical-note':'videocam'"
+      item-end>
+    </ion-icon>
+  </ion-item>
+</ion-card>

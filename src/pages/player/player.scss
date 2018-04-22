@@ -1,0 +1,86 @@
+page-player {
+  .search-box {
+
+    .search-field {
+      height: 48px;
+      // ion-card-header {
+      display: flex;
+      display: -webkit-flex;
+      align-items: center;
+      .search-icon {
+        padding-left: 8px;
+      }
+      ion-icon {
+        flex: 1;
+        margin-right: 8px;
+        // font-size: 24px;
+      }
+      input {
+        flex: 8;
+        border: none;
+      }
+      .advance-options {
+        display: flex;
+        justify-content: space-around;
+        flex: 2;
+        button {
+          height:48px;
+          width:24px;
+          flex: 1;
+          color: black;
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  .advance-filter-panel {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    flex-wrap:wrap;
+  }
+}
+
+.option-button {
+  display: flex;
+  display: -webkit-flex;
+  // flex-wrap:wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  // width: 48px;
+  max-width: 72px;
+  height: 48px;
+  margin: 8px;
+  ion-icon {
+    font-size: 24px;
+  }
+  div {
+    flex: 1;
+    // min-width:36px;
+    // font-size: 32px;
+  }
+  .yellow {
+    color: yellow;
+  }
+  .pink {
+    color: pink;
+  }
+  .lightgreen {
+    color: lightgreen;
+  }
+  .lightblue {
+    color: lightblue;
+  }
+
+  div.options-description {
+    flex:1;
+    font-size: 14px;
+    text-align: center;
+    span.options-visual {
+      font-size:12px;
+      color: grey;
+    }
+  }
+
+}

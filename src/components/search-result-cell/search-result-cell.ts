@@ -39,6 +39,7 @@ export class SearchResultCellComponent {
   download(type: string) {
     // also check if the download is processing
     // if yes then stop the downloading (pressed twice)
+
     let progress = this.youtubeDownloader.getProgressById(this.result.id)
     if(progress) {
       this.youtubeDownloader.abort(this.result.id)
@@ -46,7 +47,7 @@ export class SearchResultCellComponent {
       return
     }
     this.downloadedType = type
-    this.youtubeDownloader.download(type,this.result.id)
+    this.youtubeDownloader.download(type,this.result)
   }
 
 }

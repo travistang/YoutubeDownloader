@@ -61,30 +61,6 @@ export class DownloadButtonComponent {
       this.applicationRef.tick()
     })
   }
-
-  // isDownloading() {
-  //   return this.getDownloadStatus() == 0
-  // }
-  // getProgressObject() {
-  //   return this.youtubeDownloader.getProgressById(this.searchResult.id)
-  // }
-
-  // isWaitingForServerReply() {
-  //   let progress = this.getProgressObject()
-  //   if(!progress) return false // not even clicked
-  //   let res = progress.loadingTask // progressObject created, check if is loading Task
-  //   return res
-  // }
-  // getDownloadStatus() {
-  //   let progress = this.getProgressObject()
-  //   if(!progress) return -1 // not started
-  //   if(progress.loadingTask) return 2
-  //   if(progress.completed) {
-  //     if(progress.hasError) return -2 //finished with Error
-  //     return 1 // success
-  //   }
-  //   return 0 // in progress
-  // }
   getText() {
     /*
       If download has not started: avText
@@ -123,7 +99,7 @@ export class DownloadButtonComponent {
     }
     // completed
     if(this.completed) {
-      return 'ios-check'
+      return 'ios-checkmark'
     }
     // downloading
     if (this.hasBegun && ! this.completed) {
